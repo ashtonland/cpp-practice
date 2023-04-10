@@ -4,6 +4,7 @@
 #include <iostream>
 #include "main.h"
 
+// multiple constructor definitions allows for overloading
 Military::Military(int troops, int startMoney) {
     reserveCount = troops;
     mobalizingCount = 0;
@@ -11,6 +12,10 @@ Military::Military(int troops, int startMoney) {
     money = startMoney;
 }
 
+// the default constructor: use "::" to append/modify or access the 
+// class/namespace instead of an instance. In this case i am appending
+// a definition to the class for one of its funcions, which also happens
+// to be a special funcion: the constuctor
 Military::Military() {
     reserveCount = 500;
     mobalizingCount = 0;
@@ -18,6 +23,7 @@ Military::Military() {
     money = 5000;
 }
 
+// function defined in the cpp file, header file is only for declarations
 void Military::Mobalize(int count) {
     //consider if we try to mobalize more troops than
     //we actually have in the reserve, then use as many as possible
@@ -26,6 +32,9 @@ void Military::Mobalize(int count) {
     mobalizingCount += change;
 }
 
+// constructor for the subclass, done by make a funcion with same name
+// as the class itself. Constructors run when an instance is created
+// this is like the Start() or Awake() funcion on Unity's gameobjects
 ArmorDivision::ArmorDivision() {
     reserveCount = 50000;
     mobalizingCount = 0;
@@ -33,7 +42,7 @@ ArmorDivision::ArmorDivision() {
     money = 500;
 }
 
-//function that uses references
+//function that uses references for parameters
 bool ArmorDivision::Attack(Military& attackedForce) {
     int forces = attackedForce.activeCount;
     int casualties = forces /= 2;
@@ -44,7 +53,7 @@ bool ArmorDivision::Attack(Military& attackedForce) {
     return true;
 }
 
-// alt way to do the same thing with pointers
+// alt way to do the same thing with pointers as parameters
 bool ArmorDivision::Attack(Military* attackedForce) {
     // use -> to automatically dereference pointer (get value at memory
     // address, not the address itself, which is the pointer)
